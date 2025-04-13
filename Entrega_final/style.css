@@ -33,16 +33,6 @@
     box-sizing: border-box;
   }
 
-  /* --- NAVEGACIÓN (pestañas Resumen/Transacciones/Gastos) --- */
-  nav {
-    display: flex;
-    flex-direction: row; /* Horizontal en móviles */
-    gap: 0;
-    padding: 0.5rem;
-    overflow-x: auto; /* Scroll horizontal si no cabe */
-    white-space: nowrap;
-  }
-
   .tab {
     flex: 1;
     text-align: center;
