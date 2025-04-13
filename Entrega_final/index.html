@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguimiento Financiero</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="code.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Seguimiento de Finanzas Personales</h1>
+  </header>
+  
+  <nav>
+    <button class="tab active" onclick="mostrarPestaña('resumen')">📉 Resumen</button>
+    <button class="tab" onclick="mostrarPestaña('transacciones')">📋 Transacciones</button>
+    <button class="tab" onclick="mostrarPestaña('estimados')">📊 Gastos Estimados</button>
+
+  </nav>
+  
+  <main>
+   <!-- Resumen -->
+   <section id="resumen" class="pestaña-activa" role="complementary" id="grafico" class="pestaña-oculta">
+    <div style="display: grid; grid-template-columns: repeat(11, 1fr); grid-template-rows: repeat(1, 1fr);;">
+      <div class="card" style="grid-column: 1/4;">
+        <h3>Balance Actual:</h3>
+        <span id="balance-actual">$0.00</span>
+      </div>
+      <div class="card" style="grid-column: 9/12;">
+        <h3>Última Transacción:</h3>
+        <span id="ultima-transaccion">Sin transacciones registradas.</span>
+      </div>
+      <div class="card" style="grid-column: 5/8; grid-row: 1;">
+        <h3>Balance Estimado:</h3>
+        <span id="balance-estimado">$0.00</span>
+      </div>
+    </div>
+    <!-- Sección de Gráfica -->
+    <h2>Comparación: Estimados vs. Reales</h2>
+    <canvas id="grafico-canvas"></canvas>
+    <h2>Historial de Transacciones</h2>
+    <label for="filtro-tipo">Filtrar por Tipo:</label>
+    <select id="filtro-tipo">
+      <option value="todos">Todos</option>
+      <option value="ingreso">Ingreso</option>
+      <option value="egreso">Egreso</option>
+    </select>
+    <ul id="transacciones-lista"></ul>
+  </section>
+    
+    <!-- Sección de Transacciones -->
+    <section id="transacciones" class="pestaña-oculta">
+      <h2>Registrar Transacción</h2>
+      <form id="form-transaccion">
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" required>
+          <option value="ingreso">Ingreso</option>
+          <option value="egreso">Egreso</option>
+        </select>
+        <label for="monto">Monto:</label>
+        <input type="number" id="monto" placeholder="Ingrese el monto" required>
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" required>
+        <label for="categoria">Categoría:</label>
+        <input id="categoria" placeholder="Ingrese la categoria" required>
+        </input>
+        <button type="submit">Añadir Transacción</button>
+      </form>
+      
+      <ul id="transacciones-lista"></ul>
+    </section>
+
+    <!-- Sección de Gastos Estimados -->
+    <section id="estimados" class="pestaña-oculta">
+      <h2>Egresos Estimados</h2>
+      <form id="form-estimados">
+        <label for="mes">Mes:</label>
+        <input type="month" id="mes" required>
+        <label for="monto-estimado">Monto Estimado:</label>
+        <input type="number" id="monto-estimado" required>
+        <label for="categoria">Categoría:</label>
+        <input id="categoriaEstimado" placeholder="Ingrese la categoria" required>
+        <button type="submit">Guardar Estimado</button>
+      </form>
+      <ul id="lista-estimados"></ul>
+    </section>
+
+  </main>
+</body>
+</html>
