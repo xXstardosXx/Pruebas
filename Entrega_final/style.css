@@ -25,7 +25,7 @@
     margin-left: -50vw;
     margin-right: -50vw;
     padding: 1rem;
-    background: #f8f9fa; /* Ajusta el color según tu diseño */
+    background: #f8f9fa;
     text-align: center;
     font-size: 1.2rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -107,6 +107,11 @@
   .balance-amount {
     font-size: 1.5rem;
   }
+
+  /* Categorías en móvil */
+  .categoria-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Colores y fuentes */
@@ -132,7 +137,7 @@ header {
   padding: 1rem;
   font-size: 0.7rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px; /* Espacio debajo del título */
+  margin-bottom: 20px;
 }
 
 /* Títulos de sección */
@@ -146,7 +151,7 @@ section h3 {
 
 /* Tarjetas informativas */
 .card {
-  background-color: #4b0d5e; /* Verde claro */
+  background-color: #4b0d5e;
   padding: 0.3rem;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -156,10 +161,10 @@ section h3 {
 
 nav {
   display: flex;
-  justify-content: center; /* Centra los botones de las pestañas */
-  gap: 10px; /* Espaciado entre los botones */
-  margin-top: 10px; /* Espacio entre el título y los botones */
-  margin-bottom: 20px; /* Espaciado con el contenido principal */
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .tab {
@@ -169,7 +174,7 @@ nav {
   padding: 0.8rem 1.5rem;
   cursor: pointer;
   font-size: 1rem;
-  border-radius: 5px; /* Bordes redondeados */
+  border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
 }
@@ -186,16 +191,16 @@ nav {
 
 main {
   display: flex;
-  flex-direction: column; /* Coloca las secciones en una columna */
-  align-items: center; /* Centra horizontalmente las secciones */
-  justify-content: center; /* Centra verticalmente las secciones */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
 }
 
 section {
-  width: 100%; /* Ajustar las secciones al ancho máximo del contenedor */
-  max-width: 600px; /* Limitar el ancho para centrar visualmente */
-  margin-bottom: 1.5rem; /* Espaciado entre secciones */
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 1.5rem;
   background: white;
   padding: 1.5rem;
   border-radius: 10px;
@@ -214,9 +219,9 @@ section.pestaña-oculta {
 /* Ajuste del formulario */
 form {
   display: grid;
-  grid-template-columns: 1fr; /* Una columna para entradas */
-  gap: 1rem; /* Espaciado entre entradas */
-  max-width: 100%; /* Evitar desbordamiento */
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 100%;
 }
 
 form label {
@@ -224,12 +229,12 @@ form label {
 }
 
 form input, form select {
-  width: calc(100% - 20px); /* Ajuste para mantener los elementos dentro del contenedor */
+  width: calc(100% - 20px);
   padding: 0.8rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box; /* Asegurar que el tamaño incluya relleno y bordes */
+  box-sizing: border-box;
 }
 
 form button {
@@ -256,4 +261,38 @@ form button:hover {
 .img:active{
   transform: scale(0.85);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el contenedor de categorías */
+.categoria-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.categoria-container label {
+  grid-column: 1;
+}
+
+.categoria-container select {
+  grid-column: 2;
+}
+
+.categoria-container input {
+  grid-column: 2;
+}
+
+.categoria-container button {
+  grid-column: 3;
+  padding: 0.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.categoria-container button:hover {
+  background-color: var(--secondary-color);
 }
