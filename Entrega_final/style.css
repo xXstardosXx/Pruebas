@@ -1,14 +1,14 @@
 @media (max-width: 768px) {
-  /* Reset general para móviles */
-  body {
+  /* Reset general para eliminar márgenes no deseados */
+  body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     overflow-x: hidden;
-    font-size: 16px;
+    font-size: 14px;
   }
 
-  /* Contenedor principal */
+  /* Contenedor principal (sin límites de ancho) */
   .app-container {
     width: 100%;
     max-width: 100%;
@@ -16,85 +16,84 @@
     padding: 0;
   }
 
-  /* Título principal - ahora ocupa 100% del ancho */
-  header h1 {
-    width: 100%;
-    margin: 0;
-    padding: 15px 10px;
-    font-size: 1.4rem;
-    text-align: center;
-    background: #f0f2f5;
-    box-sizing: border-box;
+  /* --- TÍTULO PRINCIPAL (100% de ancho) --- */
+  .main-header {
     position: relative;
-    left: 0;
-    white-space: nowrap; /* Evita saltos de línea */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Puntos suspensivos si no cabe */
+    width: 100vw; /* Ancho completo del viewport */
+    left: 50%; /* Centrado */
+    right: 50%;
+    margin-left: -50vw; /* Compensa el desplazamiento */
+    margin-right: -50vw;
+    padding: 1rem;
+    background: #f0f2f5; /* Color de fondo (ajustable) */
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd; /* Línea opcional */
+    box-sizing: border-box;
   }
 
-  /* Barra de navegación - misma posición pero con scroll */
+  /* --- NAVEGACIÓN (pestañas Resumen/Transacciones/Gastos) --- */
   nav {
     display: flex;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 10px 5px;
-    background: #f8f9fa;
-    scrollbar-width: none; /* Firefox */
-  }
-  nav::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    flex-direction: row; /* Horizontal en móviles */
+    gap: 0;
+    padding: 0.5rem;
+    overflow-x: auto; /* Scroll horizontal si no cabe */
+    white-space: nowrap;
   }
 
-  /* Pestañas - tamaño original */
   .tab {
-    flex: 0 0 auto;
-    padding: 8px 16px;
-    font-size: 1rem;
-    white-space: nowrap;
+    flex: 1;
+    text-align: center;
+    padding: 0.8rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 0;
   }
 
-  /* Secciones de contenido */
+  /* --- CONTENIDO PRINCIPAL --- */
+  main {
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  /* Secciones (Balance, Transacciones) */
   section {
-    padding: 15px 10px;
     width: 100%;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
-  /* Tablas - scroll horizontal */
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    margin: 10px 0;
-    border-collapse: collapse;
-  }
-
-  /* Filtros - tamaño original */
-  .filters span, .filter-options {
-    display: inline-block;
-    font-size: 1rem;
-    margin-right: 10px;
-    white-space: nowrap;
-  }
-
-  /* Balance - tamaño de texto original */
-  .balance-section h2 {
-    font-size: 1.1rem;
-    margin: 10px 0;
-  }
-  .balance-section span {
-    font-size: 1.3rem;
-  }
-
-  /* Gráficos */
-  .chart-container {
+  /* Tarjetas (sin bordes redondeados en móvil) */
+  .card {
     width: 100%;
-    overflow: visible;
+    margin: 0 0 1rem 0;
+    padding: 1rem;
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
   }
 
-  /* Transacciones */
+  /* Sección de Transacciones (scroll interno) */
   .transactions-section {
-    min-height: auto;
+    min-height: 200px;
+    overflow-y: auto;
+  }
+
+  /* Gráficos (responsive) */
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Balance (texto más grande) */
+  .balance-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .balance-amount {
+    font-size: 1.5rem;
   }
 }
 
