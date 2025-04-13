@@ -1,4 +1,4 @@
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   /* Reset general para eliminar márgenes no deseados */
   body, html {
     margin: 0;
@@ -57,7 +57,7 @@
 
   /* Tarjetas (sin bordes redondeados en móvil) */
   .card {
-    width: 100%;
+    width: 85%;
     margin: 0 0 1rem 0;
     padding: 1rem;
     border-radius: 0;
