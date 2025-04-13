@@ -1,14 +1,14 @@
-/* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
-  body {
-    font-size: 14px;
-    padding: 0;
+  /* Reset general para eliminar márgenes no deseados */
+  body, html {
     margin: 0;
+    padding: 0;
     width: 100%;
     overflow-x: hidden;
+    font-size: 14px;
   }
 
-  /* Contenedor principal */
+  /* Contenedor principal (sin límites de ancho) */
   .app-container {
     width: 100%;
     max-width: 100%;
@@ -16,49 +16,56 @@
     padding: 0;
   }
 
-  /* Encabezado - Seguimiento de Finanzas Personales */
-  .header-title {
-    width: 100vw;
+  /* --- TÍTULO PRINCIPAL (100% de ancho) --- */
+  .main-header {
     position: relative;
-    left: 50%;
+    width: 100vw; /* Ancho completo del viewport */
+    left: 50%; /* Centrado */
     right: 50%;
-    margin-left: -50vw;
+    margin-left: -50vw; /* Compensa el desplazamiento */
     margin-right: -50vw;
     padding: 1rem;
-    background: #f8f9fa; /* Ajusta el color según tu diseño */
+    background: #f0f2f5; /* Color de fondo (ajustable) */
     text-align: center;
-    font-size: 1.2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-
-  /* Barra de navegación */
-  nav {
-    flex-direction: column;
-    gap: 5px;
-    padding: 0.5rem;
-  }
-
-  .tab {
-    width: 100%;
-    text-align: center;
-    padding: 0.8rem;
-  }
-
-  /* Contenido principal */
-  main {
-    padding: 0.5rem;
-    width: 100%;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd; /* Línea opcional */
     box-sizing: border-box;
   }
 
-  /* Secciones y tarjetas */
+  /* --- NAVEGACIÓN (pestañas Resumen/Transacciones/Gastos) --- */
+  nav {
+    display: flex;
+    flex-direction: row; /* Horizontal en móviles */
+    gap: 0;
+    padding: 0.5rem;
+    overflow-x: auto; /* Scroll horizontal si no cabe */
+    white-space: nowrap;
+  }
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.8rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 0;
+  }
+
+  /* --- CONTENIDO PRINCIPAL --- */
+  main {
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  /* Secciones (Balance, Transacciones) */
   section {
     width: 100%;
-    max-width: 100%;
-    margin-bottom: 1rem;
+    margin: 0;
     padding: 0;
   }
 
+  /* Tarjetas (sin bordes redondeados en móvil) */
   .card {
     width: 100%;
     margin: 0 0 1rem 0;
@@ -68,40 +75,21 @@
     border: 1px solid #e0e0e0;
   }
 
-  /* Sección de transacciones específica */
+  /* Sección de Transacciones (scroll interno) */
   .transactions-section {
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .transactions-list {
-    flex-grow: 1;
+    min-height: 200px;
     overflow-y: auto;
-    padding: 0.5rem;
   }
 
-  /* Formularios */
-  form {
-    gap: 0.5rem;
-    padding: 0.5rem;
-  }
-
-  form input, form select, form button {
-    font-size: 0.9rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Gráficos */
+  /* Gráficos (responsive) */
   canvas {
-    max-width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
   }
 
-  /* Balance y resumen */
-  .balance-section {
-    padding: 1rem;
+  /* Balance (texto más grande) */
+  .balance-section h3 {
+    font-size: 1.1rem;
   }
 
   .balance-amount {
