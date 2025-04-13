@@ -1,8 +1,8 @@
 // Inicializar IndexedDB
 let db;
-let grafico = null;
+let grafico = null
 
-const request = indexedDB.open("FinanzasDB", 2); // Versión incrementada
+const request = indexedDB.open("FinanzasDB", 1);
 
 // Crear estructura de la base de datos
 request.onupgradeneeded = (event) => {
@@ -18,22 +18,7 @@ request.onupgradeneeded = (event) => {
 
   // Object Store para gastos estimados
   db.createObjectStore("estimados", { keyPath: "id" });
-  
-  // Object Store para categorías
-  const categoriasStore = db.createObjectStore("categorias", {
-    keyPath: "id",
-    autoIncrement: true,
-  });
-  categoriasStore.createIndex("nombre", "nombre", { unique: true });
-  
-  // Añadir categorías iniciales si es necesario
-  const transaction = event.target.transaction;
-  const store = transaction.objectStore("categorias");
-  const categoriasIniciales = ["comida", "transporte", "entretenimiento", "salario", "otros"];
-  
-  categoriasIniciales.forEach((categoria, index) => {
-    store.add({ id: index + 1, nombre: categoria });
-  });
+  db.createObjectStore("categorias", {keyPath: "valor"})
 };
 
 request.onsuccess = (event) => {
@@ -52,84 +37,6 @@ request.onsuccess = (event) => {
 request.onerror = (event) => {
   console.error("Error al inicializar IndexedDB:", event.target.errorCode);
 };
-
-// Funciones para manejar categorías
-function agregarCategoria(nombre) {
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(["categorias"], "readwrite");
-    const store = transaction.objectStore("categorias");
-    
-    const request = store.add({ nombre: nombre.toLowerCase() });
-    
-    request.onsuccess = () => resolve();
-    request.onerror = () => reject(request.error);
-  });
-}
-
-function obtenerCategorias() {
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(["categorias"], "readonly");
-    const store = transaction.objectStore("categorias");
-    
-    const request = store.getAll();
-    
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-async function cargarCategorias() {
-  try {
-    const categorias = await obtenerCategorias();
-    const selectCategoria = document.getElementById("categoria");
-    const selectCategoriaEstimado = document.getElementById("categoriaEstimado");
-    
-    // Limpiar opciones excepto la primera
-    while (selectCategoria.options.length > 1) selectCategoria.remove(1);
-    while (selectCategoriaEstimado.options.length > 1) selectCategoriaEstimado.remove(1);
-    
-    // Añadir categorías existentes
-    categorias.forEach(categoria => {
-      const option = new Option(categoria.nombre, categoria.nombre);
-      selectCategoria.add(option);
-      
-      const optionEstimado = new Option(categoria.nombre, categoria.nombre);
-      selectCategoriaEstimado.add(optionEstimado);
-    });
-    
-    // Configurar eventos para añadir nuevas categorías
-    document.getElementById("agregar-categoria-btn").addEventListener("click", async () => {
-      const nuevaCategoria = document.getElementById("nueva-categoria").value.trim();
-      if (nuevaCategoria) {
-        try {
-          await agregarCategoria(nuevaCategoria);
-          await cargarCategorias();
-          document.getElementById("nueva-categoria").value = "";
-          document.getElementById("categoria").value = nuevaCategoria.toLowerCase();
-        } catch (error) {
-          alert("Error al agregar categoría: " + error.message);
-        }
-      }
-    });
-    
-    document.getElementById("agregar-categoria-estimado-btn").addEventListener("click", async () => {
-      const nuevaCategoria = document.getElementById("nueva-categoria-estimado").value.trim();
-      if (nuevaCategoria) {
-        try {
-          await agregarCategoria(nuevaCategoria);
-          await cargarCategorias();
-          document.getElementById("nueva-categoria-estimado").value = "";
-          document.getElementById("categoriaEstimado").value = nuevaCategoria.toLowerCase();
-        } catch (error) {
-          alert("Error al agregar categoría: " + error.message);
-        }
-      }
-    });
-    
-  } catch (error) {
-    console.error("Error al cargar categorías:", error);
-  }
-}
 
 // Alternar entre secciones
 function mostrarPestaña(id) {
@@ -159,9 +66,58 @@ function mostrarPestaña(id) {
   actualizarUltimaTransaccion();
 }
 
+// hola
+document.getElementById("form-categorias").addEventListener("submit", (e) =>{
+  e.preventDefault();
+
+  const categoriaName = document.getElementById("nombre-categoria").value
+  const categoria = {nombre : categoriaName, valor : categoriaName.toLowerCase()}
+  const transaction = db.transaction(["categorias"], "readwrite");
+  const store = transaction.objectStore("categorias");
+  const request = store.add(categoria)
+  
+  request.onsuccess = () =>{
+    alert("Se ha creado la categoria exitosamente!")
+    cargarCategorias()
+  }
+
+  request.onerror = () => {
+    alert("Ha ocurrido un error al crear la categoria pipipipipi")
+  }
+  
+})
+
+function cargarCategorias(){
+  const selectTransaccion = document.getElementById("categoria")
+  const selectEstimado = document.getElementById("categoriaEstimado")
+
+  const transaction = db.transaction(["categorias"], "readonly");
+  const store = transaction.objectStore("categorias");
+  const request = store.getAll()
+
+  request.onsuccess = () => {
+
+    const transaccionNodos = selectTransaccion.children
+    const estimadoNodos = selectEstimado.children
+      if(transaccionNodos.length > 0 ){
+        for(let i = transaccionNodos.length - 1; i >= 0; i--){
+          transaccionNodos[i].remove()
+          estimadoNodos[i].remove()
+        }
+      }
+
+    request.result.forEach((categorias) => {
+      const optionTransaccion = new Option(categorias.nombre, categorias.valor)
+      const optionEstimado = new Option(categorias.nombre, categorias.valor)
+      selectTransaccion.appendChild(optionTransaccion)
+      selectEstimado.appendChild(optionEstimado)
+    });
+  };
+}
+
 // Función para añadir transacción
 document.getElementById("form-transaccion").addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Evita que el formulario recargue la página
 
   const tipo = document.getElementById("tipo").value;
   const monto = parseFloat(document.getElementById("monto").value);
@@ -182,10 +138,10 @@ document.getElementById("form-transaccion").addEventListener("submit", (e) => {
     const request = store.add(transaccion);
     request.onsuccess = () => {
       alert("Transacción añadida correctamente.");
-      cargarTransacciones();
-      actualizarBalance();
-      actualizarUltimaTransaccion();
-      actualizarGrafico();
+      cargarTransacciones(); // Actualiza la lista
+      actualizarBalance(); // Actualiza el balance
+      actualizarUltimaTransaccion(); // Muestra la última transacción
+      actualizarGrafico(); // Actualiza la gráfica
     };
 
     request.onerror = () => {
@@ -194,6 +150,7 @@ document.getElementById("form-transaccion").addEventListener("submit", (e) => {
     };
   } else {
     alert("Por favor, completa todos los campos correctamente.");
+    console.log("Datos inválidos:", { tipo, monto, fecha, categoria });
   }
 });
 
@@ -208,7 +165,7 @@ function actualizarUltimaTransaccion() {
 
     if (transacciones.length > 0) {
       const ultimaTransaccion = transacciones.reduce((masReciente, actual) =>
-        new Date(actual.fecha) > new Date(masReciente.fecha) ? actual : masReciente
+        new Date(actual.fecha) >= new Date(masReciente.fecha) ? actual : masReciente
       );
 
       document.getElementById("ultima-transaccion").textContent = `${ultimaTransaccion.tipo.toUpperCase()} de $${ultimaTransaccion.monto.toFixed(
@@ -226,11 +183,13 @@ function actualizarUltimaTransaccion() {
 }
 
 // Función para cargar transacciones
+// Escuchar cambios en el filtro de tipo
 document.getElementById("filtro-tipo").addEventListener("change", (e) => {
-  const tipoSeleccionado = e.target.value;
-  cargarTransacciones(tipoSeleccionado);
+  const tipoSeleccionado = e.target.value; // Obtener el valor seleccionado
+  cargarTransacciones(tipoSeleccionado); // Llamar a cargarTransacciones con el filtro
 });
 
+// Modificar cargarTransacciones para aceptar un filtro
 function cargarTransacciones(filtroTipo = "todos") {
   const transaction = db.transaction(["transacciones"], "readonly");
   const store = transaction.objectStore("transacciones");
@@ -240,11 +199,13 @@ function cargarTransacciones(filtroTipo = "todos") {
     const lista = document.getElementById("transacciones-lista");
     lista.innerHTML = "";
 
+    // Filtrar las transacciones según el tipo seleccionado
     const transaccionesFiltradas = request.result.filter((transaccion) => {
       return filtroTipo === "todos" || transaccion.tipo === filtroTipo;
     });
 
     let number = 1
+    // Mostrar las transacciones filtradas
     transaccionesFiltradas.forEach((transaccion) => {
       const item = document.createElement("li");
       item.innerHTML = `${transaccion.fecha} - ${transaccion.tipo.toUpperCase()}: $${transaccion.monto} (${transaccion.categoria}) <img src="trash.svg" class="img" id="D${number}"></img>`;
@@ -299,7 +260,7 @@ function actualizarBalance() {
       balance += t.monto
     });
 
-    document.getElementById("balance-estimado").textContent = `$${balance.toFixed(2)}`;
+    document.getElementById("balance-estimado").textContent = `$${(parseFloat(document.getElementById("balance-actual").textContent.split("$")[1]).toFixed(2) - balance.toFixed(2)).toFixed(2)}`;
   }
 }
 
@@ -384,6 +345,7 @@ function actualizarGrafico() {
       requestEst.onerror = () => {
         console.error("Error al generar la gráfica.");
       };
+
   };
 
   request.onerror = () => {
@@ -392,7 +354,7 @@ function actualizarGrafico() {
 }
 
 document.getElementById("form-estimados").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Evita que el formulario recargue la página
 
   const mes = document.getElementById("mes").value;
   const montoEstimado = parseFloat(document.getElementById("monto-estimado").value);
@@ -406,6 +368,7 @@ document.getElementById("form-estimados").addEventListener("submit", async (e) =
       request.onsuccess = () =>{ resolve(request.result.length + 1) }
       request.onerror = () =>{ reject(request.error) }
     })
+
   }
 
   let id = await getID()
@@ -420,7 +383,7 @@ document.getElementById("form-estimados").addEventListener("submit", async (e) =
     const request = store.add(estimado);
     request.onsuccess = () => {
       alert("Ingreso estimado guardado correctamente.");
-      cargarEstimados();
+      cargarEstimados(); // Actualiza la lista de estimados
     };
 
     request.onerror = () => {
@@ -459,3 +422,5 @@ function cargarEstimados() {
     console.error("Error al cargar los ingresos estimados.");
   };
 }
+
+
