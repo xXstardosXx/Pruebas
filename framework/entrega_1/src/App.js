@@ -15,16 +15,14 @@ export default function App() {
   const [recipeVersion, setRecipeVersion] = useState('classic');
   const [currentUser, setCurrentUser] = useState(null);
 
+  // aqui se implementa el localstorage
   useEffect(() => {
-    // On app start, force user to login (do not auto-authenticate from localStorage).
-    // This prevents the app from showing an already-open session on reload.
-    localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('currentUser');
     setIsAuthenticated(false);
     setCurrentUser(null);
   }, []);
 
-  // Load recipes for current user (or global fallback). Runs when currentUser is set on mount or changes.
+  // Cargar recetas para el usuario actual
   useEffect(() => {
     const loadRecipesForUser = () => {
       let initial = [];
@@ -34,7 +32,7 @@ export default function App() {
         if (userJson) {
           try { initial = JSON.parse(userJson); } catch (e) { initial = []; }
         } else {
-          // migrate global recipes for first-time users if present
+          // migrar recetas globales para usuarios nuevos si existen
           const global = localStorage.getItem('recipes');
           if (global) {
             try { initial = JSON.parse(global); localStorage.setItem(key, global); } catch (e) { initial = []; }
@@ -52,7 +50,7 @@ export default function App() {
     loadRecipesForUser();
   }, [currentUser]);
 
-  // Persist recipes to per-user key (or global if no user)
+  // Persistir recetas en la clave por usuario (o global si no hay usuario)
   useEffect(() => {
     if (currentUser && currentUser.username) {
       const key = `recipes_${currentUser.username}`;
@@ -63,7 +61,7 @@ export default function App() {
   }, [recipes, currentUser]);
 
   const handleLogin = (credentials) => {
-    // Try registered users from localStorage
+    // Pruebe con usuarios registrados de localStorage
     try {
       const usersJson = localStorage.getItem('users');
       if (usersJson) {

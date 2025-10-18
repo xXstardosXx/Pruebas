@@ -52,3 +52,31 @@
 .recipe-popup > *:first-child {
     margin-top: 8px;
 }
+
+/* Ensure the inner recipe used in the popup is fully contained inside the white card
+   - force border-box so paddings don't cause overflow
+   - clip any overflowing header/background so colored areas don't escape the popup
+   - allow the popup to scroll while inner sections can also scroll sensibly */
+.recipe-popup { box-sizing: border-box; }
+.recipe-popup .recipe {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    overflow: hidden; /* clip header backgrounds that might extend outside */
+    background-clip: padding-box;
+}
+
+/* For popup versions we prefer the popup to handle overall scrolling and
+   limit the height of long lists so they scroll internally without breaking layout */
+.popup-version .steps-section ol,
+.popup-version .steps-container {
+    max-height: calc(60vh); /* relative to viewport while in popup */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px; /* room for scrollbar */
+}
+
+/* Make sure content areas inside the popup can shrink correctly inside flex containers */
+.popup-version .recipe-content { min-height: 0; }
+

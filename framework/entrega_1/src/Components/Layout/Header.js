@@ -17,7 +17,7 @@ const Header = ({ onLogout, onAddRecipe, recipeVersion, setRecipeVersion, curren
         <div className="header-controls">
           <select 
             value={recipeVersion} 
-            onChange={(e) => setRecipeVersion(e.target.value)}
+            onChange={(e ) => setRecipeVersion(e.target.value)}
             className="version-selector"
           >
             <option value="classic">Clásico</option>

@@ -3,27 +3,30 @@
   background: #ffffff;
 }
 .minimal-recipe .minimal-title {
-  font-size: 15px;
-  color: #111827;
-  padding: 10px 12px;
+  font-size: 18px;
+  color: #0f172a; /* slightly darker */
+  padding: 12px 14px;
   margin: 0;
-  font-weight: 600;
-  border-bottom: 1px solid #f3f4f6;
+  font-weight: 700;
+  border-bottom: 1px solid #eef2f7;
   background: transparent;
+  line-height: 1.2;
 }
 .minimal-recipe .minimal-ingredients,
 .minimal-recipe .minimal-steps {
   padding: 10px 12px;
   color: #374151;
+  font-size: 14px;
+  line-height: 1.5;
 }
 .minimal-recipe .ingredient-tag {
   display: inline-block;
   background: transparent;
   color: #374151;
-  padding: 4px 6px;
-  border-radius: 6px;
-  margin-right: 6px;
-  margin-bottom: 6px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
   font-size: 13px;
   border: 1px solid #eef2f7;
 }
@@ -32,8 +35,22 @@
   font-size: 13px;
 }
 .minimal-recipe .steps-preview {
-  color: #4b5563;
-  margin-top: 6px;
+  color: #374151;
+  margin-top: 8px;
+  font-size: 14px;
+  white-space: pre-wrap; /* keep line breaks */
+}
+
+/* subtle separators and spacing */
+.minimal-recipe h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+@media (max-width: 480px) {
+  .minimal-recipe .minimal-title { font-size: 16px; padding: 10px; }
+  .minimal-recipe .minimal-ingredients, .minimal-recipe .minimal-steps { padding: 8px; font-size: 13px; }
 }
 .minimal-recipe .minimal-title,
 .minimal-recipe .minimal-ingredients,

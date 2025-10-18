@@ -25,7 +25,7 @@
 .ingredient-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
 .form-section { margin-top:12px; }
 
-/* Improved input styles */
+/* Estilos de entrada mejorados */
 .recipe-form-modal input[type="text"],
 .recipe-form-modal input[type="number"],
 .recipe-form-modal input[type="email"],
@@ -52,24 +52,24 @@
 .recipe-form-modal input:focus,
 .recipe-form-modal textarea:focus,
 .recipe-form-modal select:focus {
-  border-color: #7c3aed; /* purple-600 */
+  border-color: #7c3aed;
   box-shadow: 0 10px 30px rgba(124,58,237,0.14);
   transform: translateY(-1px);
 }
 
-/* subtle validation styles */
+/* estilos de validación sutiles */
 .recipe-form-modal input.invalid,
 .recipe-form-modal textarea.invalid {
   border-color: #dc2626; /* red-600 */
   box-shadow: 0 6px 18px rgba(220,38,38,0.06);
 }
 
-/* textarea specifics: nicer look and behavior */
+/* Especificaciones del área de texto: mejor apariencia y comportamiento */
 .recipe-form-modal textarea {
-  /* default for larger textareas (comments) */
+  /* predeterminado para áreas de texto más grandes (comentarios) */
   min-height: 110px;
   max-height: 50vh;
-  resize: none; /* prevent manual resize; auto-resize handled by script */
+  resize: none; /* Evitar el cambio de tamaño manual; cambio de tamaño automático gestionado por script */
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid #e6e9ef;
@@ -82,7 +82,7 @@
 .recipe-form-modal textarea::-webkit-input-placeholder { color: #9ca3af; }
 .recipe-form-modal textarea::placeholder { color: #9ca3af; }
 
-/* Steps textareas should be more compact (less tall) but same width */
+/* Las áreas de texto de los pasos deben ser más compactas (menos altas) pero con el mismo ancho */
 .step-row textarea {
   min-height: 56px;
   max-height: 220px;
@@ -90,12 +90,12 @@
   border-radius: 8px;
 }
 
-/* Comments textarea remains larger: target by name for reliability */
+/* El área de texto de los comentarios permanece más grande: objetivo por nombre para mayor confiabilidad */
 .recipe-form-modal textarea[name="comments"] {
   min-height: 110px;
 }
 
-/* Buttons inside modal */
+/* Botones dentro del modal */
 .recipe-form-modal .btn-primary,
 .recipe-form-modal button[type="submit"] {
   background: linear-gradient(90deg,#7c3aed,#5b21b6);
@@ -124,7 +124,7 @@
   cursor: pointer;
 }
 
-/* Form labels */
+/* Etiquetas de formulario */
 .recipe-form-modal label {
   font-size: 13px;
   color: #334155;
@@ -132,7 +132,7 @@
   font-weight: 600;
 }
 
-/* add / remove buttons */
+/* agregar/eliminar botones */
 .recipe-form-modal .add-btn {
   margin-top: 8px;
   background: #fff;
@@ -157,7 +157,7 @@
   justify-content: center;
 }
 
-/* form actions layout */
+/* diseño de acciones de formulario */
 .recipe-form-modal .form-actions {
   display: flex;
   gap: 12px;
@@ -165,7 +165,7 @@
   margin-top: 16px;
 }
 
-/* match existing component class names */
+/* Coincidir con los nombres de clases de componentes existentes */
 .recipe-form-modal .btn-submit,
 .recipe-form-modal button[type="submit"] {
   background: linear-gradient(90deg,#7c3aed,#5b21b6);
@@ -186,7 +186,7 @@
   cursor: pointer;
 }
 
-/* focus-visible for accessibility */
+/* foco visible para accesibilidad */
 .recipe-form-modal input:focus-visible,
 .recipe-form-modal textarea:focus-visible,
 .recipe-form-modal select:focus-visible {
@@ -194,12 +194,12 @@
   outline-offset: 2px;
 }
 
-/* make ingredient/step inputs more compact */
+/* Hacer que las entradas de ingredientes/pasos sean más compactas */
 .ingredient-row input { flex: 1; }
 .ingredient-row input:first-child { max-width: 140px; }
 .step-row textarea { flex: 1; }
 
-/* compact form rows on small screens */
+/* Filas de formato compacto en pantallas pequeñas */
 @media (max-width: 640px) {
   .recipe-form-modal { width: 95%; padding: 16px; }
   .form-row { flex-direction: column; }

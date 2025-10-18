@@ -54,7 +54,7 @@ const RecipeForm = ({ recipe, onSubmit, onCancel }) => {
     }));
   };
 
-  // Auto-resize helper for textareas
+  // Helper de auto-ajuste para textareas
   const autoResize = (e) => {
     const el = e.target;
     if (!el) return;
@@ -62,7 +62,7 @@ const RecipeForm = ({ recipe, onSubmit, onCancel }) => {
     el.style.height = Math.min(el.scrollHeight, window.innerHeight * 0.5) + 'px';
   };
 
-  // Ensure all textareas are resized correctly when the modal opens or content changes
+  // Asegurar que todos los textareas se ajusten correctamente cuando el modal se abra o cambie el contenido
   useEffect(() => {
     const els = document.querySelectorAll('.recipe-form-modal textarea');
     els.forEach(el => {
@@ -165,7 +165,7 @@ const RecipeForm = ({ recipe, onSubmit, onCancel }) => {
                 name="prepTime"
                 value={formData.prepTime}
                 onChange={(e) => {
-                  // sanitize to digits only, prevent negative
+                  // sanitizar a solo dígitos, prevenir negativos
                   const v = e.target.value.replace(/[^0-9]/g, '');
                   setFormData(prev => ({ ...prev, prepTime: v }));
                 }}
