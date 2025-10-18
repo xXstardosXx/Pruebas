@@ -1,0 +1,3 @@
+.popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
+.recipe-popup { background:#fff; padding:16px; border-radius:8px; width:600px; }
+.close-btn { position:absolute; top:8px; right:8px; border:none; background:transparent; font-size:18px; cursor:pointer; }
