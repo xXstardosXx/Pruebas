@@ -54,6 +54,23 @@ const RecipeForm = ({ recipe, onSubmit, onCancel }) => {
     }));
   };
 
+  // Auto-resize helper for textareas
+  const autoResize = (e) => {
+    const el = e.target;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, window.innerHeight * 0.5) + 'px';
+  };
+
+  // Ensure all textareas are resized correctly when the modal opens or content changes
+  useEffect(() => {
+    const els = document.querySelectorAll('.recipe-form-modal textarea');
+    els.forEach(el => {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, window.innerHeight * 0.5) + 'px';
+    });
+  }, [formData.steps, formData.comments]);
+
   const addIngredient = () => {
     setFormData(prev => ({
       ...prev,
@@ -142,13 +159,21 @@ const RecipeForm = ({ recipe, onSubmit, onCancel }) => {
 
           <div className="form-row">
             <div className="form-group">
-              <label>Tiempo de preparación:</label>
+              <label>Tiempo de preparación (min):</label>
               <input
-                type="text"
+                type="number"
                 name="prepTime"
                 value={formData.prepTime}
-                onChange={handleInputChange}
-                placeholder="Ej: 30 minutos"
+                onChange={(e) => {
+                  // sanitize to digits only, prevent negative
+                  const v = e.target.value.replace(/[^0-9]/g, '');
+                  setFormData(prev => ({ ...prev, prepTime: v }));
+                }}
+                placeholder="Ej: 30"
+                min="0"
+                step="1"
+                inputMode="numeric"
+                pattern="\d*"
               />
             </div>
             
@@ -168,11 +193,18 @@ const RecipeForm = ({ recipe, onSubmit, onCancel }) => {
             <div className="form-group">
               <label>Porciones:</label>
               <input
-                type="text"
+                type="number"
                 name="servings"
                 value={formData.servings}
-                onChange={handleInputChange}
-                placeholder="Ej: 4 personas"
+                onChange={(e) => {
+                  const v = e.target.value.replace(/[^0-9]/g, '');
+                  setFormData(prev => ({ ...prev, servings: v }));
+                }}
+                placeholder="Ej: 4"
+                min="0"
+                step="1"
+                inputMode="numeric"
+                pattern="\d*"
               />
             </div>
           </div>
@@ -214,8 +246,9 @@ const RecipeForm = ({ recipe, onSubmit, onCancel }) => {
                 <textarea
                   placeholder={`Paso ${index + 1}`}
                   value={step}
-                  onChange={(e) => handleStepChange(index, e.target.value)}
-                  rows="3"
+                  onChange={(e) => { handleStepChange(index, e.target.value); }}
+                  onInput={autoResize}
+                  rows="2"
                 />
                 <button 
                   type="button" 
@@ -237,8 +270,9 @@ const RecipeForm = ({ recipe, onSubmit, onCancel }) => {
               name="comments"
               value={formData.comments}
               onChange={handleInputChange}
+              onInput={autoResize}
               placeholder="Notas, sugerencias, variaciones..."
-              rows="4"
+              rows="3"
             />
           </div>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../styles/RecipeCard.modern.css';
 
 const ModernRecipe = ({ recipe, isPopup = false }) => {
   const maxWidth = isPopup ? '100%' : '320px';

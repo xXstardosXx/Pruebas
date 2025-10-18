@@ -1,0 +1,19 @@
+/* Modern card styles */
+.modern-recipe {
+  --header-bg: linear-gradient(90deg,#4f46e5,#06b6d4);
+}
+.modern-recipe .modern-header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 14px;
+  text-align: left;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.modern-recipe .modern-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.modern-recipe .ingredients-grid { padding: 8px; }
+.modern-recipe .steps-timeline { padding: 8px; }

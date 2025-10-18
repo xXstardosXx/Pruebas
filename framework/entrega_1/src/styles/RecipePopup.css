@@ -1,3 +1,54 @@
-.popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
-.recipe-popup { background:#fff; padding:16px; border-radius:8px; width:600px; }
-.close-btn { position:absolute; top:8px; right:8px; border:none; background:transparent; font-size:18px; cursor:pointer; }
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.recipe-popup {
+    position: relative; /* needed so .close-btn can be positioned relative to the card */
+    background: #fff;
+    padding: 1.5rem 1.5rem 1.25rem 1.5rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 640px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Close button centered along the top edge of the popup */
+.close-btn {
+    position: absolute;
+    top: -18px; /* slightly above the card */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.close-btn:hover {
+    transform: translateX(-50%) scale(1.03);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.16);
+}
+
+.close-btn:focus {
+    outline: 2px solid rgba(102,126,234,0.25);
+    outline-offset: 4px;
+}
+
+/* Ensure content has enough top padding so the close button doesn't overlap content */
+.recipe-popup > *:first-child {
+    margin-top: 8px;
+}

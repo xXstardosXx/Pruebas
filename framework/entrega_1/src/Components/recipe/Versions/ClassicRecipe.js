@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../styles/RecipeCard.classic.css';
 
 const ClassicRecipe = ({ recipe, isPopup = false }) => {
   const maxWidth = isPopup ? '100%' : '300px';

@@ -1,14 +1,25 @@
+/* Base styles for recipe cards (shared by all variants) */
 .recipe-card-wrapper {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+
+/* Ensure wrapper children stretch to full width/height */
+.recipe-card-wrapper { align-items: stretch; }
 
 .recipe-actions {
   display: flex;
   gap: 8px;
   padding: 8px;
+  border-top: 1px solid #f3f4f6;
+  background: #fff;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .btn-view, .btn-edit, .btn-delete {
@@ -21,3 +32,179 @@
 .btn-view { background: #1976d2; color: #fff; }
 .btn-edit { background: #ffb300; color: #fff; }
 .btn-delete { background: #d32f2f; color: #fff; }
+
+.recipe {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  align-self: stretch;
+}
+
+/* make all descendants use border-box to prevent overflow from padding */
+.recipe, .recipe * { box-sizing: border-box; }
+
+.recipe .recipe-title {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #111827;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recipe .recipe-category {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.recipe .recipe-content {
+  padding: 12px 14px;
+  /* let inner sections manage their own scrolling to avoid nested scrollbars */
+  overflow: visible;
+  flex: 1 1 auto;
+  min-height: 0; /* allow flex child to shrink */
+  width: 100%;
+}
+
+.recipe .ingredients-section ul {
+  margin: 6px 0 0 18px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Steps section should have a fixed small height with internal scroll */
+.recipe .steps-section {
+  margin-top: 6px;
+}
+.recipe .steps-section ol {
+  margin: 6px 0 0 18px;
+  max-height: 120px; /* fixed small height */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px; /* space for scrollbar */
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.recipe .comments-section p {
+  margin: 6px 0 0;
+  color: #374151;
+}
+
+@media (max-width: 480px) {
+  .recipe .recipe-content { padding: 10px; }
+}
+
+/* Anchor actions to bottom and prevent them from shrinking */
+.recipe-actions { flex-shrink: 0; }
+
+/* Responsive placeholders/images */
+.recipe .recipe-image-placeholder img { max-width: 100%; height: auto; display: block; }
+
+/* -- Distinct styles per version -- */
+
+/* Classic: centered header, purple gradient, ingredients & steps stacked */
+.classic-recipe {
+  --header-bg: linear-gradient(180deg,#6d28d9,#7c3aed);
+}
+.classic-recipe .recipe-header {
+  background: var(--header-bg);
+  color: #fff;
+  text-align: center;
+}
+.classic-recipe .recipe-title { font-size: 18px; margin-bottom: 6px; }
+.classic-recipe .recipe-category { display:block; opacity:0.9; }
+.classic-recipe .ingredients-section,
+.classic-recipe .steps-section { margin-bottom: 12px; }
+
+/* Modern: two-column content area with badge-style header */
+.modern-recipe {
+  --header-bg: linear-gradient(90deg,#4f46e5,#06b6d4);
+}
+.modern-recipe .modern-header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 14px;
+  text-align: left;
+}
+.modern-recipe .modern-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.modern-recipe .ingredients-grid { padding: 8px; }
+.modern-recipe .steps-timeline { padding: 8px; }
+
+/* Card: big visual header with centered title, CTA button full width */
+.card-recipe {
+  --card-header-bg: linear-gradient(90deg,#fb7185,#f97373);
+}
+.card-recipe .card-recipe-header {
+  background: var(--card-header-bg);
+  color: #fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding: 22px 16px;
+}
+.card-recipe .recipe-image-placeholder{
+  width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:8px;font-size:22px;
+}
+.card-recipe .card-title { font-size:18px;margin:6px 0; }
+.card-recipe .card-recipe-body { padding: 14px; }
+.card-recipe .view-full-btn { display:block;width:100%;margin:12px 0;padding:10px;border-radius:8px;background:#ff7b7b;color:#fff;border:none;cursor:pointer }
+
+/* Minimal: truly minimalistic layout */
+.minimal-recipe {
+  background: #ffffff;
+}
+.minimal-recipe .minimal-title {
+  font-size: 15px;
+  color: #111827;
+  padding: 10px 12px;
+  margin: 0;
+  font-weight: 600;
+  border-bottom: 1px solid #f3f4f6;
+  background: transparent;
+}
+.minimal-recipe .minimal-ingredients,
+.minimal-recipe .minimal-steps {
+  padding: 10px 12px;
+  color: #374151;
+}
+.minimal-recipe .ingredient-tag {
+  display: inline-block;
+  background: transparent;
+  color: #374151;
+  padding: 4px 6px;
+  border-radius: 6px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  border: 1px solid #eef2f7;
+}
+.minimal-recipe .more-tag {
+  color: #6b7280;
+  font-size: 13px;
+}
+.minimal-recipe .steps-preview {
+  color: #4b5563;
+  margin-top: 6px;
+}
+
+/* remove heavy decorations and keep whitespace */
+.minimal-recipe .minimal-title,
+.minimal-recipe .minimal-ingredients,
+.minimal-recipe .minimal-steps {
+  border-radius: 0;
+}
+
+/* Hover elevation for all cards */
+.recipe-card-wrapper:hover { transform: translateY(-4px); transition: transform 0.12s ease, box-shadow 0.12s ease; box-shadow: 0 10px 30px rgba(15,23,42,0.08); }
+

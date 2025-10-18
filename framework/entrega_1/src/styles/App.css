@@ -12,7 +12,15 @@ body {
 }
 
 .App {
+  --bg-gradient-start: #f6f9ff; /* pale blue */
+  --bg-gradient-end: #eef7f3; /* pale green */
+  --panel-bg: #ffffff;
   min-height: 100vh;
+  /* subtle diagonal gradient that doesn't overpower content */
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  /* add a gentle pattern via overlay using semi-transparent radial-gradients for depth */
+  background-image: linear-gradient(135deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.01) 100%), linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  background-blend-mode: overlay;
 }
 
 /* Login */
@@ -158,6 +166,16 @@ body {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+/* Contenedor principal que envuelve header y grid de recetas */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 /* Wrapper de tarjetas */

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../styles/RecipeCard.minimal.css';
 
 const MinimalRecipe = ({ recipe, isPopup = false }) => {
   const maxWidth = isPopup ? '100%' : '280px';

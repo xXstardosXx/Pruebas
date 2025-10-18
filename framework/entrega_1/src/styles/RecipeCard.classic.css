@@ -1,0 +1,16 @@
+/* Classic card styles */
+.classic-recipe {
+  --header-bg: linear-gradient(180deg,#6d28d9,#7c3aed);
+}
+.classic-recipe .recipe-header {
+  background: var(--header-bg);
+  color: #fff;
+  text-align: center;
+  padding: 18px 14px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.classic-recipe .recipe-title { font-size: 18px; margin-bottom: 6px; }
+.classic-recipe .recipe-category { display:block; opacity:0.9; }
+.classic-recipe .ingredients-section,
+.classic-recipe .steps-section { margin-bottom: 12px; }

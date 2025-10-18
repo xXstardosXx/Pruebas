@@ -1,0 +1,42 @@
+/* Minimal styles */
+.minimal-recipe {
+  background: #ffffff;
+}
+.minimal-recipe .minimal-title {
+  font-size: 15px;
+  color: #111827;
+  padding: 10px 12px;
+  margin: 0;
+  font-weight: 600;
+  border-bottom: 1px solid #f3f4f6;
+  background: transparent;
+}
+.minimal-recipe .minimal-ingredients,
+.minimal-recipe .minimal-steps {
+  padding: 10px 12px;
+  color: #374151;
+}
+.minimal-recipe .ingredient-tag {
+  display: inline-block;
+  background: transparent;
+  color: #374151;
+  padding: 4px 6px;
+  border-radius: 6px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  border: 1px solid #eef2f7;
+}
+.minimal-recipe .more-tag {
+  color: #6b7280;
+  font-size: 13px;
+}
+.minimal-recipe .steps-preview {
+  color: #4b5563;
+  margin-top: 6px;
+}
+.minimal-recipe .minimal-title,
+.minimal-recipe .minimal-ingredients,
+.minimal-recipe .minimal-steps {
+  border-radius: 0;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../styles/RecipeCard.card.css';
 
 const CardRecipe = ({ recipe, isPopup = false }) => {
   const maxWidth = isPopup ? '100%' : '300px';
@@ -70,8 +71,7 @@ const CardRecipe = ({ recipe, isPopup = false }) => {
           </div>
         ) : (
           <div className="steps-preview">
-            <p>{recipe.steps[0].substring(0, 80)}...</p>
-            <button className="view-full-btn">Ver receta completa</button>
+            <p>{(recipe.steps && recipe.steps[0]) ? (recipe.steps[0].length > 80 ? recipe.steps[0].substring(0, 80) + '...' : recipe.steps[0]) : ''}</p>
           </div>
         )}
       </div>
