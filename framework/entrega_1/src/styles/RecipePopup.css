@@ -9,7 +9,7 @@
 }
 
 .recipe-popup {
-    position: relative; /* needed so .close-btn can be positioned relative to the card */
+    position: relative; 
     background: #fff;
     padding: 1.5rem 1.5rem 1.25rem 1.5rem;
     border-radius: 12px;
@@ -18,7 +18,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* Close button centered along the top edge of the popup */
+
 .close-btn {
     position: absolute;
     top: -18px; /* slightly above the card */
@@ -48,27 +48,23 @@
     outline-offset: 4px;
 }
 
-/* Ensure content has enough top padding so the close button doesn't overlap content */
+
 .recipe-popup > *:first-child {
     margin-top: 8px;
 }
 
-/* Ensure the inner recipe used in the popup is fully contained inside the white card
-   - force border-box so paddings don't cause overflow
-   - clip any overflowing header/background so colored areas don't escape the popup
-   - allow the popup to scroll while inner sections can also scroll sensibly */
+
 .recipe-popup { box-sizing: border-box; }
 .recipe-popup .recipe {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
     border-radius: 8px;
-    overflow: hidden; /* clip header backgrounds that might extend outside */
+    overflow: hidden; 
     background-clip: padding-box;
 }
 
-/* For popup versions we prefer the popup to handle overall scrolling and
-   limit the height of long lists so they scroll internally without breaking layout */
+
 .popup-version .steps-section ol,
 .popup-version .steps-container {
     max-height: calc(60vh); /* relative to viewport while in popup */
@@ -77,6 +73,6 @@
     padding-right: 8px; /* room for scrollbar */
 }
 
-/* Make sure content areas inside the popup can shrink correctly inside flex containers */
+
 .popup-version .recipe-content { min-height: 0; }
 
